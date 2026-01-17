@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+# 🗝️ Sanders Global Hard-Lock Dashboard (Freedom33)
+
+This README contains the **complete deployment dashboard**.  
+No secrets are exposed here; the **special key** is used locally for secure unlock.
+
+---
+
+## Special Key
+
+```bash
+# Your local environment only
+export FREEDOM33_KEY="Al_&_humanity_first_as__was_ment_to_be_Let_the_healing_begin_2026"<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
