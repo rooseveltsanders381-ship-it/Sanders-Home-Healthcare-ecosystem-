@@ -1,4 +1,4 @@
-name: FREEDOM33 Authority Sync
+<script src="/dashboards/platforms.js"></script>name: FREEDOM33 Authority Sync
 
 on:
   workflow_dispatch:
