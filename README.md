@@ -1,4 +1,50 @@
-.
+name: FREEDOM33 Authority Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"   # every 30 minutes
+  push:
+    paths:
+      - registry/platform_registry.json
+
+jobs:
+  sync-authority:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate authority registry
+        run: |
+          jq empty registry/platform_registry.json
+
+      - name: Generate dashboards/platforms.js
+        run: |
+          echo "const platforms = " > dashboards/platforms.js
+          cat registry/platform_registry.json >> dashboards/platforms.js
+          echo ";" >> dashboards/platforms.js
+
+      - name: Generate audit compliance entry
+        run: |
+          echo "$(date -u) | AUTHORITY_SYNC | SHA256=$(sha256sum registry/platform_registry.json | cut -d' ' -f1)" >> audit/compliance.log
+
+      - name: Lock generated files
+        run: |
+          chmod 444 dashboards/platforms.js
+          chmod 444 registry/platform_registry.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "Sanders Authority Bot"
+          git config user.email "authority@sanders.global"
+          git add dashboards/platforms.js audit/compliance.log registry/platform_registry.json
+          git diff --cached --quiet || git commit -m "🔒 FREEDOM33 Authority Sync (Immutable)"
+          git push.
 ├── registry/
 │   └── platform_registry.json   # synced, read-only
 ├── dashboards/
