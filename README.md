@@ -1,4 +1,121 @@
+# 🕊️ Sanders Global Freedom33 Platforms
+
+This README contains the **full deployment** of all Sanders Global platforms, including:
+
+- 35+ Platforms & Twin Watchdogs (Lil Mama & Baby Girl)  
+- All NAIC codes  
+- Live URLs  
+- Hard-locked V5 deployment scripts  
+- Audit-grade logging  
+- GitHub Actions integration for **authority sync**  
+- Real-time updates  
+- SHA256 baseline for integrity  
+
+> **Warning:** This is a **hard-lock deployment**. Manual edits are blocked. All platforms are globally live upon push.  
+
 ---
+
+## 1. Platforms & NAIC Codes
+
+| Platform | NAIC Codes | URL |
+|----------|------------|-----|
+| Sanders AI Doctor | 621111,541618,561612,541110,541512,611430 | https://ai-doctor.sandershomehealthcare.com |
+| Sanders AI Psychiatrist | 621330,541618,561612,541110,541512,611430 | https://ai-psychiatrist.sandershomehealthcare.com |
+| Sanders AI Recognition | 541511,541618,561612,523991,518210,611710 | https://ai-recognition.sandersglobal.com |
+| Sanders Omniconm | 621399,541611,561612,541614,541715,611430 | https://omniconm.sandersglobal.com |
+| Sanders Steward Sentinel | 621610,541618,561612,541611,541512,611430 | https://steward-sentinel.sanderssecurestack.com |
+| Sanders Patriot Saint | 621399,922190,561612,523991,541715,611430 | https://patriot-saint.sandersglobal.com |
+| Sanders Gia Mind Balance | 621111,541618,561612,541110,541512,611710 | https://gia-mind.sandersglobal.com |
+| Sanders Grantwriter | 621610,541611,561612,523991,541512,611430 | https://grantwriter.sanders.global |
+| Sanders Freedom Revolution | 621399,541618,561612,541614,518210,611430 | https://freedom-rev.sandersglobal.com |
+| Sanders Tactical Training | 621610,541611,561612,541614,541512,611430 | https://tactical-training.sandersglobal.com |
+| Sanders Martial Academy | 621610,922190,561612,541110,541715,611430 | https://martial-academy.sandersglobal.com |
+| Sanders Leadership Institute | 621111,541618,561612,541611,541512,611430 | https://leadership-institute.sandersglobal.com |
+| Sanders Fitness & Wellness | 621399,541618,561612,541110,518210,611430 | https://fitness-wellness.sandersglobal.com |
+| Sanders Advanced Academics | 621330,541611,561612,541110,541512,611710 | https://advanced-academics.sandersglobal.com |
+| Sanders Recon Ops | 621399,541618,561612,523991,541715,611430 | https://recon-ops.sandersglobal.com |
+| Sanders Guardian Sentinel | 621610,541611,561612,541611,541512,611430 | https://guardian-sentinel.sanderssecurestack.com |
+| Sanders Big Data Mind | 621399,541618,561612,523991,518210,611430 | https://big-data-mind.sandersglobal.com |
+| Sanders Strategy Hub | 621111,541611,561612,541614,541512,611430 | https://strategy-hub.sandersglobal.com |
+| Sanders Global Freedom | 621399,541618,561612,541611,541715,611430 | https://global-freedom.sandersglobal.com |
+| Sanders Health Solutions | 621111,541611,561612,541110,518210,611430 | https://health-solutions.sandershomehealthcare.com |
+| Sanders Coordinator | 621610,541618,561612,523991,541512,611430 | https://sanders-coordinator.vercel.app |
+| Sanders Intelligence Ops | 621399,541611,561612,541110,541512,611430 | https://intel-ops.sandersglobal.com |
+| Sanders Family Council | 621111,541618,561612,541611,541512,611430 | https://family-council.sandersglobal.com |
+| Sanders Elite Leadership | 621330,541611,561612,541614,541512,611430 | https://elite-leadership.sandersglobal.com |
+| Sanders Combat Academy | 621399,541618,561612,541110,541512,611430 | https://combat-academy.sandersglobal.com |
+| Sanders Tactical Edge | 621111,541611,561612,541614,541512,611430 | https://tactical-edge.sandersglobal.com |
+| Sanders Wellness Center | 621399,541618,561612,541110,518210,611430 | https://wellness-center.sandersglobal.com |
+| Sanders Knowledge Base | 621330,541611,561612,541110,541512,611430 | https://knowledge-base.sandersglobal.com |
+| Sanders AI Strategy | 621111,541618,561612,541614,541512,611430 | https://ai-strategy.sandersglobal.com |
+| Sanders Freedom Ops | 621399,541611,561612,541611,541715,611430 | https://freedom-ops.sandersglobal.com |
+| Sanders Mind Guardian | 621111,541618,561612,541110,541512,611430 | https://mind-guardian.sandersglobal.com |
+| Sanders Watchdog Alpha | 621399,541611,561612,523991,541512,611430 | https://watchdog-alpha.sanderssecurestack.com |
+| Sanders Watchdog Beta | 621399,541618,561612,523991,541512,611430 | https://watchdog-beta.sanderssecurestack.com |
+| Lil Mama | 621399,541618,561612,523991,541512,611430 | https://twin-lil-mama.sanderssecurestack.com |
+| Baby Girl | 621399,541618,561612,523991,541512,611430 | https://twin-baby-girl.sanderssecurestack.com |
+
+---
+
+## 2. Hard-Lock Deployment Script
+
+```bash
+#!/bin/bash
+# Sanders Global FREEDOM33 Deployment
+set -euo pipefail
+
+BASE_DIR="/srv/sanders/platforms"
+LOG_DIR="/srv/sanders/logs"
+EXPORT_DIR="/srv/sanders/baseline/export"
+mkdir -p $BASE_DIR/{audio,video,voices,calls,automation,audits,data,config} $LOG_DIR $EXPORT_DIR
+
+declare -A PLATFORM_REGISTRY
+# <Paste all platforms & NAIC|URL from above table here>
+# e.g., PLATFORM_REGISTRY["Sanders AI Doctor"]="621111,541618,...|https://ai-doctor.sandershomehealthcare.com"
+
+EXPORT_FILE="$EXPORT_DIR/platform_registry.json"
+echo "{" > "$EXPORT_FILE"
+i=0
+for PLATFORM in "${!PLATFORM_REGISTRY[@]}"; do
+  IFS='|' read -r NAIC URL <<< "${PLATFORM_REGISTRY[$PLATFORM]}"
+  i=$((i+1))
+  comma=","
+  [[ $i -eq ${#PLATFORM_REGISTRY[@]} ]] && comma=""
+  echo "  \"$PLATFORM\": { \"naic\": \"$NAIC\", \"url\": \"$URL\" }$comma" >> "$EXPORT_FILE"
+done
+echo "}" >> "$EXPORT_FILE"
+chattr +i "$EXPORT_FILE"
+
+for PLATFORM in "${!PLATFORM_REGISTRY[@]}"; do
+    SLUG=$(echo "$PLATFORM" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+    mkdir -p "$BASE_DIR/$SLUG"/{logs,data,config,audio,video,voices,calls,audits}
+    echo "$(date -u) | Platform: $PLATFORM | NAIC: ${PLATFORM_REGISTRY[$PLATFORM]%|*}" >> "$BASE_DIR/data/audits/global_registry.log"
+    SERVICE_FILE="/etc/systemd/system/freedom33-platforms@$SLUG.service"
+    cat > "$SERVICE_FILE" <<EOF
+[Unit]
+Description=Freedom33 Platform $PLATFORM - Hard Locked Deployment
+After=network.target
+
+[Service]
+ExecStart=/bin/bash $BASE_DIR/automation/twin_watchdog.sh
+Restart=always
+User=root
+ProtectSystem=full
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
+EOF
+    systemctl enable --now "freedom33-platforms@$SLUG.service"
+done
+
+chattr -R +i "$BASE_DIR"
+chattr -R +i "$LOG_DIR"
+sha256sum "$0" > /srv/sanders/baseline/FREEDOM33_BASELINE.sha256
+chattr +i /srv/sanders/baseline/FREEDOM33_BASELINE.sha256
+
+echo "🔒 DEPLOYMENT COMPLETE. V5 UNITY PROTOCOL ENFORCED."---
 
 prodsystemctl status freedom33-platforms@*sudo bash ./automation/FREEDOM33_AUTHORITY_LOCK.sh---
 
