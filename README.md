@@ -1,4 +1,4 @@
-{
+sha256sum baseline/export/platform_registry.json > baseline/FREEDOM33_BASELINE.sha256{
   "Sanders Coordinator": {
     "url": "https://sanders-coordinator.vercel.app",
     "naic": "621610,541618,561612,523991,541512,611430"
