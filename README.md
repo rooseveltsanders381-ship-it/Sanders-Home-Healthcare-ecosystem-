@@ -1,4 +1,4 @@
-{
+/srv/sanders/baseline/export/platform_registry.json{
   "routes": [
     { "src": "/platform_authority.json", "dest": "/platform_authority.json" },
     { "src": "/(.*)", "dest": "/index.html" }
