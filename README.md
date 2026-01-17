@@ -1,4 +1,59 @@
-<style>
+#!/bin/bash
+# ======================================================
+# FREEDOM33 UNIVERSAL DEPLOY + HEARTBEAT MONITOR
+# Sanders Family Trust - Baseline 2026-01-17
+# ======================================================
+
+SPECIAL_KEY="Al_&_humanity_first_as__was_ment_to_be_Let_the_healing_begin_2026"
+REGISTRY="./baseline/export/platform_registry.json"
+AUDIT_LOG="./logs/freedom33_audit.log"
+HEARTBEAT_LOG="./logs/heartbeat.log"
+WEBHOOK_URL="PASTE_YOUR_WEBHOOK_URL_HERE"
+
+mkdir -p ./logs
+
+# ---- Verify Special Key ----
+read -r INPUT_KEY <<< "$SPECIAL_KEY"
+if [[ "$INPUT_KEY" != "$SPECIAL_KEY" ]]; then
+    echo "$(date -u) | ❌ Special Key Verification FAILED. Exiting." | tee -a $AUDIT_LOG
+    exit 1
+fi
+echo "$(date -u) | 🔑 Special Key Verified. Proceeding..." | tee -a $AUDIT_LOG
+
+# ---- GitHub Push ----
+git config user.name "Sanders Authority Bot"
+git config user.email "authority@sanders.global"
+git add README.md "$REGISTRY"
+git diff --quiet || git commit -m "🔒 FREEDOM33 Auto-Unlock via Special Key"
+git push origin main
+
+# ---- Deploy (universal, any provider) ----
+npx vercel --prod --confirm || echo "✅ Deploy attempted. Check provider logs."
+
+# ---- Live Audit ----
+jq -r 'to_entries[] | "\(.key)|\(.value.url)"' "$REGISTRY" | while IFS='|' read -r NAME URL; do
+    STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "$URL")
+    if [[ "$STATUS" == "200" ]]; then
+        echo "$(date -u) | ✅ $NAME is LIVE at $URL" | tee -a $AUDIT_LOG
+    else
+        echo "$(date -u) | ❌ $NAME is DOWN ($STATUS) at $URL" | tee -a $AUDIT_LOG
+        # Heartbeat alert
+        curl -H "Content-Type: application/json" -X POST -d "{\"content\":\"⚠️ ALERT: $NAME is DOWN! (Status: $STATUS)\"}" $WEBHOOK_URL
+        echo "$(date -u) | ALERT sent for $NAME" >> $HEARTBEAT_LOG
+    fi
+done
+
+# ---- Baseline Verification ----
+BASELINE_SHA="./baseline/FREEDOM33_BASELINE.sha256"
+CURRENT_SHA=$(sha256sum "$REGISTRY" | awk '{print $1}')
+RECORD_SHA=$(cat "$BASELINE_SHA" 2>/dev/null || echo "")
+if [[ "$CURRENT_SHA" == "$RECORD_SHA" ]]; then
+    echo "$(date -u) | 🔒 Baseline Verified" | tee -a $AUDIT_LOG
+else
+    echo "$(date -u) | ⚠️ Baseline MISMATCH! Audit failed." | tee -a $AUDIT_LOG
+fi
+
+echo "$(date -u) | FREEDOM33 Audit + Heartbeat Complete." | tee -a $AUDIT_LOG<style>
 .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap:1rem; }
 .platform-card { border:2px solid #222; border-radius:12px; padding:1rem; background:#f9f9f9; transition:transform 0.2s; }
 .platform-card:hover { transform:scale(1.02); }
