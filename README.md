@@ -1,4 +1,34 @@
-{
+name: Authority Sync
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lock-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify authority files
+        run: |
+          test -f index.html
+          test -f platforms.js
+          test -f vercel.json
+
+      - name: Audit hash
+        run: |
+          sha256sum platforms.js >> audit.log
+          sha256sum index.html >> audit.log
+
+      - name: Commit audit
+        run: |
+          git config user.name "Sanders Authority"
+          git config user.email "authority@sanders.global"
+          git add audit.log
+          git commit -m "Authority audit update" || true
+          git push{
   "version": 2,
   "routes": [
     { "src": "/platforms.js", "dest": "/platforms.js" },
