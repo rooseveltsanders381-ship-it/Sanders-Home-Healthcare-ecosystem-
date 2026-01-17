@@ -1,4 +1,23 @@
-<div id="platforms" class="grid"></div>
+# ---------------------------
+# FREEDOM33 EXPORT FOR GITHUB SYNC
+# ---------------------------
+EXPORT_DIR="./baseline/export"
+mkdir -p "$EXPORT_DIR"
+EXPORT_FILE="$EXPORT_DIR/platform_registry.json"
+
+echo "{" > "$EXPORT_FILE"
+i=0
+for PLATFORM in "${!PLATFORM_REGISTRY[@]}"; do
+  IFS='|' read -r NAIC URL <<< "${PLATFORM_REGISTRY[$PLATFORM]}"
+  i=$((i+1))
+  comma=","
+  [[ $i -eq ${#PLATFORM_REGISTRY[@]} ]] && comma=""
+  echo "  \"$PLATFORM\": { \"naic\": \"$NAIC\", \"url\": \"$URL\" }$comma" >> "$EXPORT_FILE"
+done
+echo "}" >> "$EXPORT_FILE"
+
+# Hard-lock the export file
+chattr +i "$EXPORT_FILE"<div id="platforms" class="grid"></div>
 <script>
   const container = document.getElementById('platforms');
   Object.entries(platforms).forEach(([name, data]) => {
