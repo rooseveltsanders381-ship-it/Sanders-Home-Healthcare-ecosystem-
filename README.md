@@ -1,4 +1,32 @@
-# ---------------------------
+name: Sync Authority Registry
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"  # hourly
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Pull FREEDOM33 authority registry
+        run: |
+          cp ./baseline/export/platform_registry.json ./registry/platform_registry.json
+
+      - name: Block manual edits
+        run: |
+          git config user.name "Sanders Authority Bot"
+          git config user.email "authority@sanders.global"
+
+      - name: Commit if changed
+        run: |
+          git diff --quiet && exit 0
+          git add registry/platform_registry.json
+          git commit -m "🔒 Sync from FREEDOM33 Authority Lock"
+          git push# ---------------------------
 # FREEDOM33 EXPORT FOR GITHUB SYNC
 # ---------------------------
 EXPORT_DIR="./baseline/export"
