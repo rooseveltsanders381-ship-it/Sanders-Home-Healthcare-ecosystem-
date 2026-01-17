@@ -1,4 +1,73 @@
-sudo apt-get update && sudo apt-get install -y mailutils#!/bin/bash
+# .github/workflows/freedom33-deploy-email.yml
+name: FREEDOM33 Auto-Deploy, Audit & Email
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"  # hourly
+
+jobs:
+  deploy-and-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout repo
+      - uses: actions/checkout@v4
+
+      # 2️⃣ Install dependencies
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y jq curl mailutils
+
+      # 3️⃣ Commit README baseline
+      - name: Commit README
+        run: |
+          git config user.name "Sanders Authority Bot"
+          git config user.email "authority@sanders.global"
+          git add README.md ./baseline/export/platform_registry.json
+          git diff --quiet || git commit -m "🚀 Deploy FREEDOM33 Hard-Lock Baseline"
+          git push origin main
+
+      # 4️⃣ Deploy to Vercel
+      - name: Deploy to Vercel
+        run: npx vercel --prod --confirm
+
+      # 5️⃣ Run Live Audit
+      - name: Run FREEDOM33 Audit
+        run: |
+          mkdir -p ./logs
+          AUDIT_LOG="./logs/freedom33_audit.log"
+          REGISTRY="./baseline/export/platform_registry.json"
+
+          echo "$(date -u) | Starting FREEDOM33 Live Audit" > "$AUDIT_LOG"
+          jq -r 'to_entries[] | "\(.key)|\(.value.url)"' "$REGISTRY" | while IFS='|' read -r NAME URL; do
+              STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+              if [[ "$STATUS" == "200" ]]; then
+                  echo "$(date -u) | ✅ $NAME is LIVE at $URL" >> "$AUDIT_LOG"
+              else
+                  echo "$(date -u) | ❌ $NAME is DOWN or unreachable ($STATUS) at $URL" >> "$AUDIT_LOG"
+              fi
+          done
+
+          BASELINE_SHA="./baseline/FREEDOM33_BASELINE.sha256"
+          CURRENT_SHA=$(sha256sum "$REGISTRY" | awk '{print $1}')
+          RECORD_SHA=$(cat "$BASELINE_SHA")
+          if [[ "$CURRENT_SHA" == "$RECORD_SHA" ]]; then
+              echo "$(date -u) | 🔒 Baseline Verified" >> "$AUDIT_LOG"
+          else
+              echo "$(date -u) | ⚠️ Baseline MISMATCH! Audit failed." >> "$AUDIT_LOG"
+          fi
+          echo "$(date -u) | FREEDOM33 Audit Complete" >> "$AUDIT_LOG"
+
+      # 6️⃣ Send audit log via email
+      - name: Email Audit Log
+        env:
+          EMAIL_TO: your.email@sanders.global
+        run: |
+          AUDIT_LOG="./logs/freedom33_audit.log"
+          SUBJECT="FREEDOM33 Audit Log - $(date -u '+%Y-%m-%d %H:%M UTC')"
+          cat "$AUDIT_LOG" | mail -s "$SUBJECT" "$EMAIL_TO"sudo apt-get update && sudo apt-get install -y mailutils#!/bin/bash
 # ======================================================
 # FREEDOM33 ONE-COMMAND DEPLOY & AUDIT + EMAIL ALERT
 # Pushes README, deploys Vercel, runs audit, emails log
