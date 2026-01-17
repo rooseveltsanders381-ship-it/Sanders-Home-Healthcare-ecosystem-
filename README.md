@@ -1,4 +1,4 @@
-name: Authority Sync
+SANDERS_STEWARD_KEY=sggk_live_roosevelt_sanders_rootname: Authority Sync
 
 on:
   push:
