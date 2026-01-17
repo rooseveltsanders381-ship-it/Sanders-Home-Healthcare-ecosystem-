@@ -1,4 +1,22 @@
-{
+import fs from 'fs';
+
+export function verifySteward(request) {
+  const key = request.headers['x-sanders-key'];
+
+  if (!key || key !== process.env.SANDERS_STEWARD_KEY) {
+    throw new Error('UNAUTHORIZED: Invalid Steward Key');
+  }
+
+  const manifest = JSON.parse(
+    fs.readFileSync('./authority.manifest.json', 'utf-8')
+  );
+
+  return {
+    steward: manifest.steward.name,
+    authority: manifest.steward.authority,
+    unlocked: true
+  };
+}{
   "steward": {
     "name": "Roosevelt Sanders",
     "role": "Global Steward",
