@@ -1,4 +1,15 @@
-// platforms.js — auto-generated from FREEDOM33 Authority Lock
+{
+  "version": 2,
+  "name": "sanders-global-platforms",
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "platforms.js", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/platforms.js", "dest": "/platforms.js" }
+  ]
+}// platforms.js — auto-generated from FREEDOM33 Authority Lock
 const platforms = {
   "Sanders AI Doctor": { naic: "621111,541618,561612,541110,541512,611430", url: "https://ai-doctor.sandershomehealthcare.com" },
   "Sanders AI Psychiatrist": { naic: "621330,541618,561612,541110,541512,611430", url: "https://ai-psychiatrist.sandershomehealthcare.com" },
