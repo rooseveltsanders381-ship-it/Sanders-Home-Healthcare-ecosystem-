@@ -1,4 +1,30 @@
-sha256sum /srv/sanders/baseline/platform_authority.json \
+#!/bin/bash
+set -euo pipefail
+
+NAME="$1"
+NAIC="$2"
+URL="$3"
+
+AUTH_FILE="/srv/sanders/baseline/platform_authority.json"
+
+# Temporary unlock
+chattr -i "$AUTH_FILE"
+
+jq --arg name "$NAME" \
+   --arg naic "$NAIC" \
+   --arg url "$URL" \
+   '. + {($name): {naic: ($naic | split(",")), url: $url}}' \
+   "$AUTH_FILE" > /tmp/authority.tmp
+
+mv /tmp/authority.tmp "$AUTH_FILE"
+
+# Re-lock
+chattr +i "$AUTH_FILE"
+
+sha256sum "$AUTH_FILE" > /srv/sanders/baseline/platform_authority.sha256
+chattr +i /srv/sanders/baseline/platform_authority.sha256
+
+echo "✅ $NAME added and hard-locked."sha256sum /srv/sanders/baseline/platform_authority.json \
   > /srv/sanders/baseline/platform_authority.sha256
 
 chattr +i /srv/sanders/baseline/platform_authority.json
