@@ -1,4 +1,11 @@
- #!/bin/bash
+# Remove env files
+rm -f .env .env.local .env.production .env.preview
+
+# Remove cached secrets
+git rm -r --cached .
+git add .
+git commit -m "SECURITY: purge all cached secrets"
+git push --force #!/bin/bash
 
 OWNER="YOUR_GITHUB_USERNAME_OR_ORG"
 REPO="YOUR_REPO_NAME"
