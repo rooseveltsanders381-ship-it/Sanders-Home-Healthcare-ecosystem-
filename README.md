@@ -1,4 +1,29 @@
-# 🕊️ Sanders Global Freedom33 Platforms
+name: Sync Authority Registry
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Pull authority registry
+        run: |
+          cp /srv/sanders/baseline/export/platform_registry.json ./registry/platform_registry.json
+      - name: Block manual edits
+        run: |
+          git config user.name "Sanders Authority Bot"
+          git config user.email "authority@sanders.global"
+      - name: Commit if changed
+        run: |
+          git diff --quiet && exit 0
+          git add registry/platform_registry.json
+          git commit -m "🔒 Sync from FREEDOM33 Authority Lock"
+          git push# 🕊️ Sanders Global Freedom33 Platforms
 
 This README contains the **full deployment** of all Sanders Global platforms, including:
 
