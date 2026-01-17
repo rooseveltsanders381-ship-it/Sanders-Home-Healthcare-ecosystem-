@@ -1,4 +1,36 @@
-# 🔒 Sanders Global Platforms - FREEDOM33
+This key **unlocks all platforms, dashboards, and audit logs automatically** for the Sanders Steward/Founder.
+
+---
+
+## ⚡ GitHub Actions Integration
+
+```yaml
+# .github/workflows/sync-authority.yml
+name: Sync Authority Registry
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy platform registry
+        run: cp ./baseline/export/platform_registry.json ./registry/platform_registry.json
+      - name: Generate audit log
+        run: |
+          echo "🌐 Compliance Audit" > ./registry/compliance_$(date +'%Y%m%d_%H%M%S').log
+          cat ./registry/platform_registry.json >> ./registry/compliance_$(date +'%Y%m%d_%H%M%S').log
+      - name: Block manual edits
+        run: git update-index --assume-unchanged ./registry/platform_registry.json
+      - name: Commit changes
+        run: |
+          git diff --quiet && exit 0
+          git add ./registry/platform_registry.json
+          git commit -m "🔄 Sync from FREEDOM33 Authority Lock"
+          git push# 🔒 Sanders Global Platforms - FREEDOM33
 
 Welcome to the Sanders Global Hard-Lock Dashboard.  
 All platforms, Twin Watchdogs, NAIC codes, and URLs are synced via **FREEDOM33 Authority Lock**.
