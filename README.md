@@ -1,4 +1,20 @@
-SANDERS_STEWARD_KEY=sggk_live_roosevelt_sanders_rootname: Authority Sync
+{
+  "steward": {
+    "name": "Roosevelt Sanders",
+    "role": "Global Steward",
+    "authority": "ROOT",
+    "unlock_all": true
+  },
+  "hard_locked_names": [
+    "Sanders Global Guardian",
+    "Freedom33",
+    "Baby Girl",
+    "Lil Mama"
+  ],
+  "platform_count": 35,
+  "authority_level": "ABSOLUTE",
+  "last_updated": "2026-01-17T00:00:00Z"
+}SANDERS_STEWARD_KEY=sggk_live_roosevelt_sanders_rootname: Authority Sync
 
 on:
   push:
