@@ -1,4 +1,55 @@
-#!/bin/bash
+name: FREEDOM33 Auto-Deploy & Audit
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  deploy-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y jq curl
+      - name: Commit README baseline
+        run: |
+          git config user.name "Sanders Authority Bot"
+          git config user.email "authority@sanders.global"
+          git add README.md ./baseline/export/platform_registry.json
+          git diff --quiet || git commit -m "🚀 Deploy FREEDOM33 Hard-Lock Baseline"
+          git push origin main
+      - name: Deploy to Vercel
+        run: npx vercel --prod --confirm
+      - name: Run Live Audit
+        run: |
+          mkdir -p ./logs
+          AUDIT_LOG="./logs/freedom33_audit.log"
+          REGISTRY="./baseline/export/platform_registry.json"
+          echo "$(date -u) | Starting FREEDOM33 Live Audit" >> "$AUDIT_LOG"
+          jq -r 'to_entries[] | "\(.key)|\(.value.url)"' "$REGISTRY" | while IFS='|' read -r NAME URL; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+            if [[ "$STATUS" == "200" ]]; then
+              echo "$(date -u) | ✅ $NAME is LIVE at $URL" >> "$AUDIT_LOG"
+            else
+              echo "$(date -u) | ❌ $NAME is DOWN ($STATUS) at $URL" >> "$AUDIT_LOG"
+            fi
+          done
+          BASELINE_SHA="./baseline/FREEDOM33_BASELINE.sha256"
+          CURRENT_SHA=$(sha256sum "$REGISTRY" | awk '{print $1}')
+          RECORD_SHA=$(cat "$BASELINE_SHA")
+          if [[ "$CURRENT_SHA" == "$RECORD_SHA" ]]; then
+            echo "$(date -u) | 🔒 Baseline Verified" >> "$AUDIT_LOG"
+          else
+            echo "$(date -u) | ⚠️ Baseline MISMATCH! Audit failed." >> "$AUDIT_LOG"
+          fi
+      - name: Upload Audit Logs
+        uses: actions/upload-artifact@v3
+        with:
+          name: freedom33-audit-logs
+          path: ./logs/freedom33_audit.log#!/bin/bash
 SPECIAL_KEY="Al_&_humanity_first_as__was_ment_to_be_Let_the_healing_begin_2026"
 REGISTRY="./baseline/export/platform_registry.json"
 
