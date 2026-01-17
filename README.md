@@ -1,4 +1,9 @@
-# 🗝️ Sanders Global Hard-Lock Dashboard (Freedom33)
+const platforms = {
+  "Sanders AI Doctor": { naic: "621111,541618,561612,541110,541512,611430", url: "https://ai-doctor.sandershomehealthcare.com" },
+  "Sanders AI Psychiatrist": { naic: "621330,541618,561612,541110,541512,611430", url: "https://ai-psychiatrist.sandershomehealthcare.com" },
+  "Sanders AI Recognition": { naic: "541511,541618,561612,523991,518210,611710", url: "https://ai-recognition.sandersglobal.com" },
+  // … include all 35+ platforms, Twin Watchdogs Lil Mama & Baby Girl
+};# 🗝️ Sanders Global Hard-Lock Dashboard (Freedom33)
 
 This README contains the **complete deployment dashboard**.  
 No secrets are exposed here; the **special key** is used locally for secure unlock.
