@@ -1,3 +1,16 @@
+## 🚀 Getting Started
+
+To maintain the integrity of the **Sanders Secure Stack**, all new deployments must utilize the **Freedom Ring Baseline Code** established on 2026-01-07. Follow these steps to initialize a new instance within the ecosystem.
+
+### Prerequisites
+* Ensure your environment variables are configured for the `sanderssecurestack.com` domain.
+* Verify your business unit is assigned one of the approved NAICS codes (e.g., 541512 for Systems Design).
+
+### 1. Clone the Baseline
+Every new deployment starts with the core stack.
+```bash
+git clone [https://github.com/your-repo/sanders-secure-stack.git](https://github.com/your-repo/sanders-secure-stack.git)
+cd sanders-secure-stack
 ## 🎯 Mission Statement
 The **Sanders Secure Stack** exists to empower sovereignty through technology. Our mission is to provide a unified, secure infrastructure that bridges the gap between digital automation and human fiduciary responsibility. By deploying specialized units—from the **Sanders Coordinator** to our **Digital Twin** instances—we are committed to building a future where technology serves as a guardian of freedom, ensuring data integrity, business compliance, and personal security.
 
