@@ -1,4 +1,41 @@
-git add README.md && git commit -m "🚀 Deploy FREEDOM33 Hard-Lock Baseline" && git push origin main && npx vercel --prod --confirmname: Sync Authority Registry
+#!/bin/bash
+# ======================================================
+# FREEDOM33 LIVE AUDIT & HARD-LOCK VERIFICATION
+# Checks all platforms, updates audit logs, confirms baseline
+# Author: Sanders Family Trust
+# ======================================================
+
+BASE_DIR="/srv/sanders/baseline/export"
+LOG_DIR="/srv/sanders/logs"
+AUDIT_LOG="$LOG_DIR/freedom33_audit.log"
+REGISTRY="$BASE_DIR/platform_registry.json"
+
+mkdir -p "$LOG_DIR"
+
+echo "$(date -u) | Starting FREEDOM33 Live Audit" >> "$AUDIT_LOG"
+
+# Loop through all platforms
+jq -r 'to_entries[] | "\(.key)|\(.value.url)"' "$REGISTRY" | while IFS='|' read -r NAME URL; do
+    STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+    if [[ "$STATUS" == "200" ]]; then
+        echo "$(date -u) | ✅ $NAME is LIVE at $URL" >> "$AUDIT_LOG"
+    else
+        echo "$(date -u) | ❌ $NAME is DOWN or unreachable ($STATUS) at $URL" >> "$AUDIT_LOG"
+    fi
+done
+
+# Confirm baseline SHA256
+BASELINE_SHA="/srv/sanders/baseline/FREEDOM33_BASELINE.sha256"
+CURRENT_SHA=$(sha256sum "$REGISTRY" | awk '{print $1}')
+RECORD_SHA=$(cat "$BASELINE_SHA")
+
+if [[ "$CURRENT_SHA" == "$RECORD_SHA" ]]; then
+    echo "$(date -u) | 🔒 Baseline Verified: registry matches hard-lock SHA256" >> "$AUDIT_LOG"
+else
+    echo "$(date -u) | ⚠️ Baseline MISMATCH: registry changed! Audit failed." >> "$AUDIT_LOG"
+fi
+
+echo "$(date -u) | FREEDOM33 Audit Complete" >> "$AUDIT_LOG"git add README.md && git commit -m "🚀 Deploy FREEDOM33 Hard-Lock Baseline" && git push origin main && npx vercel --prod --confirmname: Sync Authority Registry
 
 on:
   workflow_dispatch:
