@@ -1,4 +1,61 @@
-name: FREEDOM33 Auto-Deploy & Audit
+#!/bin/bash
+# ======================================================
+# FREEDOM33 ONE-COMMAND DEPLOY & AUDIT
+# Pushes README, triggers Vercel deployment, runs audit
+# Author: Sanders Family Trust
+# ======================================================
+
+# ---- Config ----
+SPECIAL_KEY="Al_&_humanity_first_as__was_ment_to_be_Let_the_healing_begin_2026"
+REGISTRY="./baseline/export/platform_registry.json"
+LOG_DIR="./logs"
+AUDIT_LOG="$LOG_DIR/freedom33_audit.log"
+
+mkdir -p "$LOG_DIR"
+
+# ---- Verify Special Key ----
+read -r INPUT_KEY <<< "$SPECIAL_KEY"
+if [[ "$INPUT_KEY" != "$SPECIAL_KEY" ]]; then
+    echo "$(date -u) | ❌ Special Key Verification FAILED. Exiting."
+    exit 1
+fi
+
+echo "$(date -u) | 🔑 Special Key Verified. Starting FREEDOM33 deployment..."
+
+# ---- 1️⃣ Push README ----
+git config user.name "Sanders Authority Bot"
+git config user.email "authority@sanders.global"
+git add README.md "$REGISTRY"
+git diff --quiet || git commit -m "🚀 FREEDOM33 Hard-Lock Baseline Deploy"
+git push origin main
+
+# ---- 2️⃣ Deploy to Vercel ----
+echo "$(date -u) | Deploying to Vercel..."
+npx vercel --prod --confirm
+
+# ---- 3️⃣ Run Live Audit ----
+echo "$(date -u) | Running FREEDOM33 Live Audit..." > "$AUDIT_LOG"
+jq -r 'to_entries[] | "\(.key)|\(.value.url)"' "$REGISTRY" | while IFS='|' read -r NAME URL; do
+    STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+    if [[ "$STATUS" == "200" ]]; then
+        echo "$(date -u) | ✅ $NAME is LIVE at $URL" >> "$AUDIT_LOG"
+    else
+        echo "$(date -u) | ❌ $NAME is DOWN or unreachable ($STATUS) at $URL" >> "$AUDIT_LOG"
+    fi
+done
+
+# ---- 4️⃣ Verify Baseline SHA ----
+BASELINE_SHA="./baseline/FREEDOM33_BASELINE.sha256"
+CURRENT_SHA=$(sha256sum "$REGISTRY" | awk '{print $1}')
+RECORD_SHA=$(cat "$BASELINE_SHA")
+if [[ "$CURRENT_SHA" == "$RECORD_SHA" ]]; then
+    echo "$(date -u) | 🔒 Baseline Verified: registry matches hard-lock SHA256" >> "$AUDIT_LOG"
+else
+    echo "$(date -u) | ⚠️ Baseline MISMATCH: registry changed! Audit failed." >> "$AUDIT_LOG"
+fi
+
+echo "$(date -u) | FREEDOM33 One-Command Deploy & Audit COMPLETE"
+echo "Audit log saved at $AUDIT_LOG"name: FREEDOM33 Auto-Deploy & Audit
 
 on:
   push:
