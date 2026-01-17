@@ -1,4 +1,8 @@
-#!/bin/bash
+fetch('/platform_authority.json')
+  .then(res => res.json())
+  .then(data => {
+    window.platforms = data;
+  });#!/bin/bash
 set -euo pipefail
 
 NAME="$1"
