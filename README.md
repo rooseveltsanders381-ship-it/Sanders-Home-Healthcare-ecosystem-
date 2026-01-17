@@ -1,4 +1,14 @@
-import fs from 'fs';
+import { verifySteward } from './auth/verifySteward';
+
+export default function handler(req, res) {
+  const auth = verifySteward(req);
+
+  res.json({
+    status: 'UNLOCKED',
+    steward: auth.steward,
+    dashboards: 'ALL'
+  });
+}import fs from 'fs';
 
 export function verifySteward(request) {
   const key = request.headers['x-sanders-key'];
