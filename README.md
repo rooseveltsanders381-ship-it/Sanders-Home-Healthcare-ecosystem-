@@ -1,4 +1,4 @@
-#!/bin/bash
+chmod +x deploy-freedom33.sh#!/bin/bash
 # ======================================================
 # FREEDOM33 ONE-COMMAND DEPLOY & AUDIT
 # Pushes README, triggers Vercel deployment, runs audit
