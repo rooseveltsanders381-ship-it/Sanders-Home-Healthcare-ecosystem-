@@ -1,4 +1,14 @@
-git add README.md baseline scripts .github
+---
+## 🔒 FREEDOM33 BASELINE STATUS
+
+- Version: v1.0
+- Authority: Sanders Family Trust
+- Scope: Universal (All Providers)
+- Deployment: README-only
+- Integrity: SHA256 Locked
+- Resource Profile: Near-Zero
+- Status: ❄️ FROZEN / CANONICAL
+---git add README.md baseline scripts .github
 git commit -m "🔒 FREEDOM33 Universal Humanity-First Baseline (Locked)"
 git push origin mainWEBHOOK_URL=SET_IN_PROVIDER
 SPECIAL_KEY=SET_IN_GITHUB_SECRETS
