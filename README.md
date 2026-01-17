@@ -1,3 +1,5 @@
+WEBHOOK_URL=SET_IN_PROVIDER
+SPECIAL_KEY=SET_IN_GITHUB_SECRETS
 sha256sum baseline/export/platform_registry.json > baseline/FREEDOM33_BASELINE.sha256{
   "Sanders Coordinator": {
     "url": "https://sanders-coordinator.vercel.app",
