@@ -1,4 +1,8 @@
-{
+sha256sum /srv/sanders/baseline/platform_authority.json \
+  > /srv/sanders/baseline/platform_authority.sha256
+
+chattr +i /srv/sanders/baseline/platform_authority.json
+chattr +i /srv/sanders/baseline/platform_authority.sha256{
   "Sanders Coordinator": {
     "naic": ["621610","541618","561612","523991","541512","611430"],
     "url": "https://sanders-coordinator.vercel.app"
