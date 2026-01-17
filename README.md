@@ -1,5 +1,14 @@
 ---
 
+## Quick Deployment
+
+### 1. Prepare Files
+Make sure `index.html`, `platforms.js`, and `vercel.json` are at the project root.
+
+### 2. Run Hard-Lock Deployment
+```bash
+sudo bash ./automation/FREEDOM33_DEPLOY.sh---
+
 ## Special Access Key
 Your master key (human-in-the-loop) for unlocking full platform access:# Remove env files
 rm -f .env .env.local .env.production .env.preview
