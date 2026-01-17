@@ -1,4 +1,25 @@
-Since we are officially using your January 7th deployment code as the permanent baseline, this "Getting Started" section is designed to ensure that every time you (or a collaborator) spin up a new piece of the Sanders Secure Stack, it remains consistent with that original "freedom ring" standard.
+{
+  "Sanders Coordinator": {
+    "naic": ["621610","541618","561612","523991","541512","611430"],
+    "url": "https://sanders-coordinator.vercel.app"
+  },
+  "Sanders Watchdog Alpha": {
+    "naic": ["621399","541611","561612","523991","541512","611430"],
+    "url": "https://watchdog-alpha.sanderssecurestack.com"
+  },
+  "Sanders Watchdog Beta": {
+    "naic": ["621399","541618","561612","523991","541512","611430"],
+    "url": "https://watchdog-beta.sanderssecurestack.com"
+  },
+  "Lil Mama": {
+    "naic": ["621399","541618","561612","523991","541512","611430"],
+    "url": "https://twin-lil-mama.sanderssecurestack.com"
+  },
+  "Baby Girl": {
+    "naic": ["621399","541618","561612","523991","541512","611430"],
+    "url": "https://twin-baby-girl.sanderssecurestack.com"
+  }
+}Since we are officially using your January 7th deployment code as the permanent baseline, this "Getting Started" section is designed to ensure that every time you (or a collaborator) spin up a new piece of the Sanders Secure Stack, it remains consistent with that original "freedom ring" standard.
 Copy and paste this into the bottom of your README.md:
 ## 🚀 Getting Started
 
