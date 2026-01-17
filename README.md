@@ -1,4 +1,88 @@
-#!/bin/bash
+<!-- ======================================================
+  Sanders Global Platforms — FREEDOM33
+  Universal, Low-Resource, Audit-Ready, All-In-One
+  Version: 1.0 | Baseline 2026-01-17
+  Author: Sanders Family Trust
+====================================================== -->
+
+<style>
+.platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap:1rem; }
+.platform-card { border:2px solid #222; border-radius:12px; padding:1rem; background:#f9f9f9; transition:transform 0.2s; }
+.platform-card:hover { transform:scale(1.02); }
+.platform-card h3 { margin:0 0 0.5rem 0; font-size:1.2rem; }
+.platform-card .naic { font-size:0.85rem; color:#555; margin-bottom:0.5rem; }
+.platform-card a { color:#1a73e8; text-decoration:none; font-weight:bold; }
+.platform-card a:hover { text-decoration:underline; }
+</style>
+
+<div class="platform-grid" id="platforms"></div>
+
+<script>
+const platforms = {
+  "Sanders AI Doctor": { naic:"621111,541618,561612,541110,541512,611430", url:"https://ai-doctor.sandershomehealthcare.com" },
+  "Sanders AI Psychiatrist": { naic:"621330,541618,561612,541110,541512,611430", url:"https://ai-psychiatrist.sandershomehealthcare.com" },
+  "Sanders Coordinator": { naic:"621610,541618,561612,523991,541512,611430", url:"https://sanders-coordinator.vercel.app" },
+  "Lil Mama": { naic:"621399,541618,561612,523991,541512,611430", url:"https://twin-lil-mama.sanderssecurestack.com" },
+  "Baby Girl": { naic:"621399,541618,561612,523991,541512,611430", url:"https://twin-baby-girl.sanderssecurestack.com" }
+  // Add remaining 30+ platforms here...
+};
+
+const container = document.getElementById('platforms');
+Object.entries(platforms).forEach(([name,data])=>{
+  const card=document.createElement('div');
+  card.className="platform-card";
+  card.innerHTML=`<h3>${name}</h3><div class="naic">NAIC: ${data.naic}</div><a href="${data.url}" target="_blank">LAUNCH PLATFORM →</a>`;
+  container.appendChild(card);
+});
+</script>
+
+<!-- ======================================================
+  UNIVERSAL DEPLOYMENT + HEARTBEAT SCRIPT
+====================================================== -->
+
+<script type="text/javascript">
+(async ()=>{
+  const SPECIAL_KEY="Al_&_humanity_first_as__was_ment_to_be_Let_the_healing_begin_2026";
+  const INPUT_KEY=SPECIAL_KEY; // Embed your key here
+  const REGISTRY="./baseline/export/platform_registry.json";
+  const AUDIT_LOG="./logs/freedom33_audit.log";
+  const HEARTBEAT_LOG="./logs/heartbeat.log";
+  const WEBHOOK_URL="PASTE_YOUR_WEBHOOK_URL_HERE";
+
+  if(INPUT_KEY!==SPECIAL_KEY){
+    console.error("❌ Special Key Verification FAILED. Exiting.");
+    return;
+  }
+  console.log("🔑 Special Key Verified. Proceeding with deploy & audit.");
+
+  // Minimal resource audit + heartbeat
+  for(const [name,data] of Object.entries(platforms)){
+    try{
+      const res = await fetch(data.url,{method:"HEAD"});
+      const status=res.status;
+      const live=status===200?"✅ LIVE":"❌ DOWN";
+      console.log(`${new Date().toISOString()} | ${name} - ${live} (${status})`);
+      if(status!==200){
+        // Trigger webhook alert
+        fetch(WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({content:`⚠️ ALERT: ${name} is DOWN (${status})`})});
+      }
+    }catch(err){
+      console.error(`${new Date().toISOString()} | ${name} - ❌ ERROR`,err);
+    }
+  }
+
+  console.log(new Date().toISOString(),"| FREEDOM33 Audit + Heartbeat Complete");
+})();
+</script>
+
+<!-- ======================================================
+  NOTES:
+  - Push this README to GitHub
+  - GitHub Actions / Vercel / Netlify can auto-deploy
+  - Add remaining platforms & WEBHOOK_URL
+  - SHA256 baseline can be computed from platform_registry.json
+  - Near-zero resource usage: JS only does HEAD fetches
+====================================================== -->#!/bin/bash
 # ======================================================
 # FREEDOM33 UNIVERSAL DEPLOY + HEARTBEAT MONITOR
 # Sanders Family Trust - Baseline 2026-01-17
