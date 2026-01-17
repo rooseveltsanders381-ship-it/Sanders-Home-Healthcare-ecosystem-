@@ -1,4 +1,19 @@
-#!/bin/bash
+# 🔒 Sanders Global Platforms – FREEDOM33
+
+Welcome to the **Sanders Global Hard-Lock Dashboard**.  
+All 35+ platforms, Twin Watchdogs, Lil Mama, Baby Girl, NAIC codes, URLs, and deployment scripts are fully **hard-locked** and **audit-ready**.
+
+---
+
+## 1️⃣ Platform Registry (Immutable)
+
+```javascript
+const platforms = {
+  "Sanders AI Doctor": { naic: "621111,541618,561612,541110,541512,611430", url: "https://ai-doctor.sandershomehealthcare.com" },
+  // ... all other 35+ platforms here
+  "Lil Mama": { naic: "621399,541618,561612,523991,541512,611430", url: "https://twin-lil-mama.sanderssecurestack.com" },
+  "Baby Girl": { naic: "621399,541618,561612,523991,541512,611430", url: "https://twin-baby-girl.sanderssecurestack.com" }
+};#!/bin/bash
 # ======================================================
 # FREEDOM33 SPECIAL KEY AUTHORIZATION
 # Author: Sanders Family Trust
