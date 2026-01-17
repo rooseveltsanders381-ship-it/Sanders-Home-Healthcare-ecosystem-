@@ -1,4 +1,4 @@
-name: Sync Authority Registry
+git add README.md && git commit -m "🚀 Deploy FREEDOM33 Hard-Lock Baseline" && git push origin main && npx vercel --prod --confirmname: Sync Authority Registry
 
 on:
   workflow_dispatch:
