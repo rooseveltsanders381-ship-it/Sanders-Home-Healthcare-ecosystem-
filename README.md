@@ -1,4 +1,9 @@
-fetch('/platform_authority.json')
+{
+  "routes": [
+    { "src": "/platform_authority.json", "dest": "/platform_authority.json" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}fetch('/platform_authority.json')
   .then(res => res.json())
   .then(data => {
     window.platforms = data;
