@@ -1,4 +1,4 @@
----
+sudo bash ./automation/FREEDOM33_AUTHORITY_LOCK.sh---
 
 ## Quick Deployment
 
