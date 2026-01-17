@@ -1,4 +1,33 @@
-git add .
+<style>
+.platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap:1rem; }
+.platform-card { border:2px solid #222; border-radius:12px; padding:1rem; background:#f9f9f9; transition:transform 0.2s; }
+.platform-card:hover { transform:scale(1.02); }
+.platform-card h3 { margin:0 0 0.5rem 0; font-size:1.2rem; }
+.platform-card .naic { font-size:0.85rem; color:#555; margin-bottom:0.5rem; }
+.platform-card a { color:#1a73e8; text-decoration:none; font-weight:bold; }
+.platform-card a:hover { text-decoration:underline; }
+</style>
+
+<div class="platform-grid" id="platforms"></div>
+
+<script>
+const platforms = {
+  "Sanders AI Doctor": { naic: "621111,541618,561612,541110,541512,611430", url:"https://ai-doctor.sandershomehealthcare.com" },
+  "Sanders AI Psychiatrist": { naic:"621330,541618,561612,541110,541512,611430", url:"https://ai-psychiatrist.sandershomehealthcare.com" },
+  "Sanders Coordinator": { naic:"621610,541618,561612,523991,541512,611430", url:"https://sanders-coordinator.vercel.app" },
+  "Lil Mama": { naic:"621399,541618,561612,523991,541512,611430", url:"https://twin-lil-mama.sanderssecurestack.com" },
+  "Baby Girl": { naic:"621399,541618,561612,523991,541512,611430", url:"https://twin-baby-girl.sanderssecurestack.com" }
+  // … include all 35+ platforms here
+};
+
+const container = document.getElementById('platforms');
+Object.entries(platforms).forEach(([name,data])=>{
+  const card=document.createElement('div');
+  card.className="platform-card";
+  card.innerHTML=`<h3>${name}</h3><div class="naic">NAIC: ${data.naic}</div><a href="${data.url}" target="_blank">LAUNCH PLATFORM →</a>`;
+  container.appendChild(card);
+});
+</script>git add .
 git commit -m "🔒 FREEDOM33 v1.0 Canonical Humanity-First Universal Baseline"
 git push origin maingit init
 git remote add origin https://github.com/YOUR_ORG/new-project.git
