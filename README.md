@@ -1,4 +1,15 @@
-/srv/sanders/baseline/export/platform_registry.json{
+.
+├── registry/
+│   └── platform_registry.json   # synced, read-only
+├── dashboards/
+│   └── platforms.js             # auto-generated
+├── public/
+│   └── index.html               # already provided by you
+├── audit/
+│   └── compliance.log           # append-only
+└── .github/
+    └── workflows/
+        └── authority-sync.yml/srv/sanders/baseline/export/platform_registry.json{
   "routes": [
     { "src": "/platform_authority.json", "dest": "/platform_authority.json" },
     { "src": "/(.*)", "dest": "/index.html" }
