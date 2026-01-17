@@ -1,4 +1,6 @@
-git init
+git add .
+git commit -m "🔒 FREEDOM33 v1.0 Canonical Humanity-First Universal Baseline"
+git push origin maingit init
 git remote add origin https://github.com/YOUR_ORG/new-project.git
 git add .
 git commit -m "🚀 Initialize FREEDOM33 Platform"
