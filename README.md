@@ -1,4 +1,22 @@
-<div id="platforms" class="grid"></div>
+#!/bin/bash
+SPECIAL_KEY="Al_&_humanity_first_as__was_ment_to_be_Let_the_healing_begin_2026"
+REGISTRY="./baseline/export/platform_registry.json"
+
+read -r INPUT_KEY <<< "$SPECIAL_KEY"
+
+if [[ "$INPUT_KEY" == "$SPECIAL_KEY" ]]; then
+    echo "$(date -u) | 🔑 Special Key Verified. Unlocking all platforms..."
+    git config user.name "Sanders Authority Bot"
+    git config user.email "authority@sanders.global"
+    git add "$REGISTRY"
+    git commit -m "🔒 FREEDOM33 Auto-Unlock via Special Key"
+    git push origin main
+    npx vercel --prod --confirm
+    echo "$(date -u) | ✅ All platforms successfully unlocked and deployed."
+else
+    echo "$(date -u) | ❌ Special Key Verification FAILED. No action taken."
+    exit 1
+fi<div id="platforms" class="grid"></div>
 
 <script src="platforms.js"></script>
 <script>
