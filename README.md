@@ -1,4 +1,6 @@
-WEBHOOK_URL=SET_IN_PROVIDER
+git add README.md baseline scripts .github
+git commit -m "🔒 FREEDOM33 Universal Humanity-First Baseline (Locked)"
+git push origin mainWEBHOOK_URL=SET_IN_PROVIDER
 SPECIAL_KEY=SET_IN_GITHUB_SECRETS
 sha256sum baseline/export/platform_registry.json > baseline/FREEDOM33_BASELINE.sha256{
   "Sanders Coordinator": {
