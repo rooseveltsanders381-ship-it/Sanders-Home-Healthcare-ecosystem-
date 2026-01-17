@@ -1,4 +1,15 @@
-#!/bin/bash
+<div id="platforms"></div>
+<script src="platforms.js"></script>
+<script>
+  const container = document.getElementById('platforms');
+  Object.entries(platforms).forEach(([name, data]) => {
+    const div = document.createElement('div');
+    div.className = 'platform';
+    div.innerHTML = `<h3>${name}</h3><div class="naic">NAIC: ${data.naic}</div>
+                     <a href="${data.url}" target="_blank">Launch →</a>`;
+    container.appendChild(div);
+  });
+</script>#!/bin/bash
 # Readme-safe deployment script
 
 if [[ "$FREEDOM33_KEY" != "Al_&_humanity_first_as__was_ment_to_be_Let_the_healing_begin_2026" ]]; then
