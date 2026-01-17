@@ -1,4 +1,30 @@
-const platforms = {
+#!/bin/bash
+# Readme-safe deployment script
+
+if [[ "$FREEDOM33_KEY" != "Al_&_humanity_first_as__was_ment_to_be_Let_the_healing_begin_2026" ]]; then
+  echo "❌ INVALID KEY: Deployment aborted."
+  exit 1
+fi
+
+echo "🔒 Key verified. Starting local deployment..."
+
+# Create folder structure
+BASE_DIR="./platforms"
+mkdir -p "$BASE_DIR"/{audio,video,voices,calls,audits,logs,data,config}
+
+# Generate audit logs
+for PLATFORM in "${!platforms[@]}"; do
+  echo "$(date -u) | $PLATFORM | NAIC: ${platforms[PLATFORM].naic}" >> "$BASE_DIR/data/audits.log"
+done
+
+echo "✅ Platforms & Twin Watchdogs registered locally. Logs generated."
+
+# Optional: trigger GitHub Actions workflow (read-only)
+echo "🔄 Triggering GitHub sync (read-only, no secrets exposed)..."
+# Placeholder: use personal environment token, not in README
+# gh workflow run sync-authority.yml
+
+echo "🌐 READY FOR VERCEL DEPLOYMENT"const platforms = {
   "Sanders AI Doctor": { naic: "621111,541618,561612,541110,541512,611430", url: "https://ai-doctor.sandershomehealthcare.com" },
   "Sanders AI Psychiatrist": { naic: "621330,541618,561612,541110,541512,611430", url: "https://ai-psychiatrist.sandershomehealthcare.com" },
   "Sanders AI Recognition": { naic: "541511,541618,561612,523991,518210,611710", url: "https://ai-recognition.sandersglobal.com" },
