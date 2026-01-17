@@ -1,4 +1,32 @@
-<div id="platforms" class="grid"></div>
+name: Sync Authority Registry
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"  # hourly
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pull authority registry
+        run: |
+          cp ./baseline/export/platform_registry.json ./registry/platform_registry.json
+
+      - name: Block manual edits
+        run: |
+          git config user.name "Sanders Authority Bot"
+          git config user.email "authority@sanders.global"
+
+      - name: Commit changes
+        run: |
+          git diff --quiet && exit 0
+          git add registry/platform_registry.json
+          git commit -m "🔒 Sync from FREEDOM33 Authority Lock"
+          git push<div id="platforms" class="grid"></div>
 
 <script src="platforms.js"></script>
 <script>
