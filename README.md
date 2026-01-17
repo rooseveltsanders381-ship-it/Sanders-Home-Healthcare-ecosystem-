@@ -1,3 +1,5 @@
+# This command initializes the core deployment logic
+npm run deploy:baseline --unit="Your-Unit-Name"
 ## 🚀 Getting Started
 
 To maintain the integrity of the **Sanders Secure Stack**, all new deployments must utilize the **Freedom Ring Baseline Code** established on 2026-01-07. Follow these steps to initialize a new instance within the ecosystem.
