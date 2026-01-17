@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+{
+  "version": 2,
+  "name": "sanders-global-platforms",
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/platforms.js", "dest": "/platforms.js" }
+  ]
+}<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
