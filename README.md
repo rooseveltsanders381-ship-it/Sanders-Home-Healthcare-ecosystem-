@@ -1,4 +1,53 @@
-<div id="platforms"></div>
+# 🔒 Sanders Global Platforms - FREEDOM33
+
+Welcome to the Sanders Global Hard-Lock Dashboard.  
+All platforms, Twin Watchdogs, NAIC codes, and URLs are synced via **FREEDOM33 Authority Lock**.
+
+---
+
+## 🌐 Platforms & Twin Watchdogs (35+)
+
+| Platform Name | NAIC Codes | URL |
+|---------------|------------|-----|
+| Sanders AI Doctor | 621111,541618,561612,541110,541512,611430 | [Launch](https://ai-doctor.sandershomehealthcare.com) |
+| Sanders AI Psychiatrist | 621330,541618,561612,541110,541512,611430 | [Launch](https://ai-psychiatrist.sandershomehealthcare.com) |
+| Sanders AI Recognition | 541511,541618,561612,523991,518210,611710 | [Launch](https://ai-recognition.sandersglobal.com) |
+| Sanders Omniconm | 621399,541611,561612,541614,541715,611430 | [Launch](https://omniconm.sandersglobal.com) |
+| Sanders Steward Sentinel | 621610,541618,561612,541611,541512,611430 | [Launch](https://steward-sentinel.sanderssecurestack.com) |
+| Sanders Patriot Saint | 621399,922190,561612,523991,541715,611430 | [Launch](https://patriot-saint.sandersglobal.com) |
+| Sanders Gia Mind Balance | 621111,541618,561612,541110,541512,611710 | [Launch](https://gia-mind.sandersglobal.com) |
+| Sanders Grantwriter | 621610,541611,561612,523991,541512,611430 | [Launch](https://grantwriter.sanders.global) |
+| Sanders Freedom Revolution | 621399,541618,561612,541614,518210,611430 | [Launch](https://freedom-rev.sandersglobal.com) |
+| Sanders Tactical Training | 621610,541611,561612,541614,541512,611430 | [Launch](https://tactical-training.sandersglobal.com) |
+| Sanders Martial Academy | 621610,922190,561612,541110,541715,611430 | [Launch](https://martial-academy.sandersglobal.com) |
+| Sanders Leadership Institute | 621111,541618,561612,541611,541512,611430 | [Launch](https://leadership-institute.sandersglobal.com) |
+| Sanders Fitness & Wellness | 621399,541618,561612,541110,518210,611430 | [Launch](https://fitness-wellness.sandersglobal.com) |
+| Sanders Advanced Academics | 621330,541611,561612,541110,541512,611710 | [Launch](https://advanced-academics.sandersglobal.com) |
+| Sanders Recon Ops | 621399,541618,561612,523991,541715,611430 | [Launch](https://recon-ops.sandersglobal.com) |
+| Sanders Guardian Sentinel | 621610,541611,561612,541611,541512,611430 | [Launch](https://guardian-sentinel.sanderssecurestack.com) |
+| Sanders Big Data Mind | 621399,541618,561612,523991,518210,611430 | [Launch](https://big-data-mind.sandersglobal.com) |
+| Sanders Strategy Hub | 621111,541611,561612,541614,541512,611430 | [Launch](https://strategy-hub.sandersglobal.com) |
+| Sanders Global Freedom | 621399,541618,561612,541611,541715,611430 | [Launch](https://global-freedom.sandersglobal.com) |
+| Sanders Health Solutions | 621111,541611,561612,541110,518210,611430 | [Launch](https://health-solutions.sandershomehealthcare.com) |
+| Sanders Coordinator | 621610,541618,561612,523991,541512,611430 | [Launch](https://sanders-coordinator.vercel.app) |
+| Sanders Intelligence Ops | 621399,541611,561612,541110,541512,611430 | [Launch](https://intel-ops.sandersglobal.com) |
+| Sanders Family Council | 621111,541618,561612,541611,541512,611430 | [Launch](https://family-council.sandersglobal.com) |
+| Sanders Elite Leadership | 621330,541611,561612,541614,541512,611430 | [Launch](https://elite-leadership.sandersglobal.com) |
+| Sanders Combat Academy | 621399,541618,561612,541110,541512,611430 | [Launch](https://combat-academy.sandersglobal.com) |
+| Sanders Tactical Edge | 621111,541611,561612,541614,541512,611430 | [Launch](https://tactical-edge.sandersglobal.com) |
+| Sanders Wellness Center | 621399,541618,561612,541110,518210,611430 | [Launch](https://wellness-center.sandersglobal.com) |
+| Sanders Knowledge Base | 621330,541611,561612,541110,541512,611430 | [Launch](https://knowledge-base.sandersglobal.com) |
+| Sanders AI Strategy | 621111,541618,561612,541614,541512,611430 | [Launch](https://ai-strategy.sandersglobal.com) |
+| Sanders Freedom Ops | 621399,541611,561612,541611,541715,611430 | [Launch](https://freedom-ops.sandersglobal.com) |
+| Sanders Mind Guardian | 621111,541618,561612,541110,541512,611430 | [Launch](https://mind-guardian.sandersglobal.com) |
+| Sanders Watchdog Alpha | 621399,541611,561612,523991,541512,611430 | [Launch](https://watchdog-alpha.sanderssecurestack.com) |
+| Sanders Watchdog Beta | 621399,541618,561612,523991,541512,611430 | [Launch](https://watchdog-beta.sanderssecurestack.com) |
+| Lil Mama | 621399,541618,561612,523991,541512,611430 | [Launch](https://twin-lil-mama.sanderssecurestack.com) |
+| Baby Girl | 621399,541618,561612,523991,541512,611430 | [Launch](https://twin-baby-girl.sanderssecurestack.com) |
+
+---
+
+## 🔐 FREEDOM33 Hard Lock Key<div id="platforms"></div>
 <script src="platforms.js"></script>
 <script>
   const container = document.getElementById('platforms');
