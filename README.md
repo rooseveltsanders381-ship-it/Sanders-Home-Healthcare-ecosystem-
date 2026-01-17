@@ -1,4 +1,9 @@
-git add README.md
+{
+  "Sanders Coordinator": {
+    "url": "https://sanders-coordinator.vercel.app",
+    "naic": "621610,541618,561612,523991,541512,611430"
+  }
+}git add README.md
 git commit -m "🔒 FREEDOM33 Universal Baseline – Humanity-First Hard Lock"
 git push origin maingit add README.md
 git commit -m "🔒 FREEDOM33 Universal Baseline – Humanity-First Hard Lock"
