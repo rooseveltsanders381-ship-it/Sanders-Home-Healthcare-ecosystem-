@@ -1,4 +1,27 @@
-<script src="/dashboards/platforms.js"></script>name: FREEDOM33 Authority Sync
+// platforms.js — HARD AUTHORITY REGISTRY (READ ONLY)
+
+const platforms = {
+  "Sanders AI Doctor": {
+    naic: "621111,541618,561612,541110,541512,611430",
+    url: "https://ai-doctor.sandershomehealthcare.com"
+  },
+  "Sanders AI Psychiatrist": {
+    naic: "621330,541618,561612,541110,541512,611430",
+    url: "https://ai-psychiatrist.sandershomehealthcare.com"
+  },
+  "Lil Mama": {
+    naic: "621399,541618,561612,523991,541512,611430",
+    url: "https://twin-lil-mama.sanderssecurestack.com"
+  },
+  "Baby Girl": {
+    naic: "621399,541618,561612,523991,541512,611430",
+    url: "https://twin-baby-girl.sanderssecurestack.com"
+  }
+  // continue — all platforms stay HERE
+};
+
+Object.freeze(platforms);
+export default platforms;<script src="/dashboards/platforms.js"></script>name: FREEDOM33 Authority Sync
 
 on:
   workflow_dispatch:
