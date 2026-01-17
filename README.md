@@ -1,4 +1,10 @@
-// platforms.js — HARD AUTHORITY REGISTRY (READ ONLY)
+{
+  "version": 2,
+  "routes": [
+    { "src": "/platforms.js", "dest": "/platforms.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}// platforms.js — HARD AUTHORITY REGISTRY (READ ONLY)
 
 const platforms = {
   "Sanders AI Doctor": {
