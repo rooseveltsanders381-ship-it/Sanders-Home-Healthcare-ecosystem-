@@ -1,4 +1,16 @@
-# 🛡️ Sanders Global Platforms - FREEDOM33 Hard Lock Baseline
+<div id="platforms" class="grid"></div>
+<script>
+  const container = document.getElementById('platforms');
+  Object.entries(platforms).forEach(([name, data]) => {
+      const div = document.createElement('div');
+      div.className = 'platform';
+      div.innerHTML = `
+          <h3>${name}</h3>
+          <div class="naic">NAIC: ${data.naic}</div>
+          <a href="${data.url}" target="_blank">Launch Platform →</a>`;
+      container.appendChild(div);
+  });
+</script># 🛡️ Sanders Global Platforms - FREEDOM33 Hard Lock Baseline
 
 **Status:** 🔒 Fully Locked | Real-World Deployment Ready | Readme-Only  
 
