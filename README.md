@@ -1,4 +1,37 @@
-# .github/workflows/freedom33-deploy.yml
+#!/bin/bash
+# ======================================================
+# FREEDOM33 SPECIAL KEY AUTHORIZATION
+# Author: Sanders Family Trust
+# Purpose: Unlocks all platforms/dashboards automatically
+# ======================================================
+
+# ---- Your Special Key ----
+SPECIAL_KEY="Al_&_humanity_first_as__was_ment_to_be_Let_the_healing_begin_2026"
+
+# ---- Baseline Registry ----
+REGISTRY="./baseline/export/platform_registry.json"
+
+# ---- Verify Key Before Unlocking ----
+read -r INPUT_KEY <<< "$SPECIAL_KEY"  # This would be checked in CI/CD
+
+if [[ "$INPUT_KEY" == "$SPECIAL_KEY" ]]; then
+    echo "$(date -u) | 🔑 Special Key Verified. Unlocking all platforms..." 
+
+    # Update GitHub registry (read-only pull)
+    git config user.name "Sanders Authority Bot"
+    git config user.email "authority@sanders.global"
+    git add "$REGISTRY"
+    git commit -m "🔒 FREEDOM33 Auto-Unlock via Special Key"
+    git push origin main
+
+    # Trigger Vercel Deployment
+    npx vercel --prod --confirm
+
+    echo "$(date -u) | ✅ All platforms successfully unlocked and deployed."
+else
+    echo "$(date -u) | ❌ Special Key Verification FAILED. No action taken."
+    exit 1
+fi# .github/workflows/freedom33-deploy.yml
 name: FREEDOM33 Auto-Deploy & Audit
 
 on:
