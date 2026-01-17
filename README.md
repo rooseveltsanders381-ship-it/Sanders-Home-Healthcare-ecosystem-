@@ -1,4 +1,20 @@
- 
+ #!/bin/bash
+
+OWNER="YOUR_GITHUB_USERNAME_OR_ORG"
+REPO="YOUR_REPO_NAME"
+TOKEN="YOUR_GITHUB_PAT"
+
+SECRETS=$(curl -s \
+  -H "Authorization: token $TOKEN" \
+  https://api.github.com/repos/$OWNER/$REPO/actions/secrets \
+  | jq -r '.secrets[].name')
+
+for SECRET in $SECRETS; do
+  curl -X DELETE \
+    -H "Authorization: token $TOKEN" \
+    https://api.github.com/repos/$OWNER/$REPO/actions/secrets/$SECRET
+  echo "Deleted secret: $SECRET"
+done
 
   return {
     steward: manifest.steward.name,
