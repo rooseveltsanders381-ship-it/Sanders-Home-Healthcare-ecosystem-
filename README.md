@@ -1,4 +1,4 @@
-#!/bin/bash
+sudo apt-get update && sudo apt-get install -y mailutils#!/bin/bash
 # ======================================================
 # FREEDOM33 ONE-COMMAND DEPLOY & AUDIT + EMAIL ALERT
 # Pushes README, deploys Vercel, runs audit, emails log
