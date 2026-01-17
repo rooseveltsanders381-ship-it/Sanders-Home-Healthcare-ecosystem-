@@ -1,4 +1,17 @@
-# 🔒 Sanders Global Platforms – FREEDOM33
+<div id="platforms" class="grid"></div>
+
+<script src="platforms.js"></script>
+<script>
+const container = document.getElementById('platforms');
+Object.entries(platforms).forEach(([name, data]) => {
+    const div = document.createElement('div');
+    div.className = 'platform';
+    div.innerHTML = `<h3>${name}</h3>
+                     <div class="naic">NAIC: ${data.naic}</div>
+                     <a href="${data.url}" target="_blank">LAUNCH PLATFORM →</a>`;
+    container.appendChild(div);
+});
+</script># 🔒 Sanders Global Platforms – FREEDOM33
 
 Welcome to the **Sanders Global Hard-Lock Dashboard**.  
 All 35+ platforms, **Twin Watchdogs**, **Lil Mama**, **Baby Girl**, NAIC codes, URLs, and deployment scripts are fully **hard-locked**, **audit-ready**, and safe to push.
