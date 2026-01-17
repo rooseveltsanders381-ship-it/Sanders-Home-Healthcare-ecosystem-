@@ -1,4 +1,23 @@
-import { verifySteward } from './auth/verifySteward';
+name: Authority Sync
+
+on:
+  push:
+    paths:
+      - authority.manifest.json
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Authority Manifest
+        run: |
+          jq '.steward.name' authority.manifest.json
+
+      - name: Deploy to All Dashboards
+        run: |
+          echo "Syncing authority to all 35+ platforms"import { verifySteward } from './auth/verifySteward';
 
 export default function handler(req, res) {
   const auth = verifySteward(req);
