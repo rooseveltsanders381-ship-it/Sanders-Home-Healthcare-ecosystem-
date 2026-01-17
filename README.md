@@ -1,4 +1,11 @@
-name: Sync Authority Registry
+#!/bin/bash
+CALLS_DIR="/srv/sanders/platforms/calls"
+AUDIT_DIR="/srv/sanders/platforms/audits"
+mkdir -p $AUDIT_DIR
+inotifywait -m -e create --format '%f' "$CALLS_DIR" | while read FILE; do
+    cp "$CALLS_DIR/$FILE" "$AUDIT_DIR/"
+    echo "$(date -u) | $FILE monitored by Twins" >> "$AUDIT_DIR/twin_alerts.log"
+donename: Sync Authority Registry
 
 on:
   workflow_dispatch:
