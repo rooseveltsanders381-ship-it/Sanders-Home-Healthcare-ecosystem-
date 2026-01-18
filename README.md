@@ -1,4 +1,4 @@
-<!-- ======================================================
+npx vercel --prod --confirm<!-- ======================================================
   Sanders Global Platforms — FREEDOM33
   Universal, Low-Resource, Audit-Ready, All-In-One
   Version: 1.0 | Baseline 2026-01-17
