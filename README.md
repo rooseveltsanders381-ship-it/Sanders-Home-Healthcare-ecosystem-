@@ -1,3 +1,15 @@
+# Define your core platforms
+PLATFORMS=("ai-doctor" "ai-psychiatrist" "sanders-coordinator" "lil-mama" "baby-girl")
+
+for project in "${PLATFORMS[@]}"; do
+  echo "🔗 Linking $project..."
+  cd platforms/$project
+  # This links the project to your Vercel account via the CLI
+  vercel link --yes --token ${{ secrets.VERCEL_TOKEN }}
+  # This performs the first production push to create the deployment ID
+  vercel --prod --confirm --token ${{ secrets.VERCEL_TOKEN }}
+  cd ../..
+done
 # From this:
 if [[ "$FAILURES" -ge 3 ]]; then exit 1; fi
 
