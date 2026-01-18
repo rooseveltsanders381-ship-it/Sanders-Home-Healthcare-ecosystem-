@@ -1,4 +1,6 @@
-{
+git add logs/FREEDOM33_GOLD_CERTIFICATE.md
+git commit -m "📜 FREEDOM33-GOLD: Canonical Activation Certificate Recorded"
+git push origin main{
   "Sanders AI Doctor": { "naic": "621111,541618,561612,541110,541512,611430", "url": "https://ai-doctor-your-deployment.vercel.app" },
   "Sanders AI Psychiatrist": { "naic": "621330,541618,561612,541110,541512,611430", "url": "https://ai-psychiatrist-your-deployment.vercel.app" }
 }npx vercel --prod --confirm<!-- ======================================================
