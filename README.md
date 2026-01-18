@@ -1,3 +1,95 @@
+name: FREEDOM33-GOLD Unified Global Deployment
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unified-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify Baseline Integrity
+        id: integrity
+        run: |
+          REGISTRY="./baseline/export/platform_registry.json"
+          LOCKFILE="./baseline/FREEDOM33_BASELINE.sha256"
+          SHA=$(sha256sum "$REGISTRY" | awk '{print $1}')
+          RECORDED_SHA=$(cat "$LOCKFILE" | tr -d '[:space:]')
+          if [ "$SHA" != "$RECORDED_SHA" ]; then
+            echo "❌ INTEGRITY BREACH: Baseline mismatch!"
+            exit 1
+          fi
+          echo "CURRENT_SHA=$SHA" >> $GITHUB_ENV
+          echo "🔒 Baseline integrity verified: $SHA"
+
+      - name: Install ImageMagick & wkhtmltopdf
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick wkhtmltopdf
+
+      - name: Generate Gold Seal PNG
+        run: |
+          mkdir -p ./assets
+          convert -size 600x600 xc:none \
+            -fill gold -stroke black -strokewidth 4 \
+            -draw "circle 300,300 300,50" \
+            -pointsize 24 -gravity center \
+            -annotate 0 "FREEDOM33-GOLD\nCanonical Baseline\nSHA256: $CURRENT_SHA" \
+            "./assets/FREEDOM33_GOLD_SEAL.png"
+
+      - name: Generate Gold Token Certificate PDF
+        run: |
+          mkdir -p ./docs
+          cat <<EOF > ./docs/cert.html
+          <html><body style="font-family:sans-serif; text-align:center; padding:50px; border:10px solid gold;">
+          <h1>🏅 FREEDOM33-GOLD Certificate</h1>
+          <p><strong>SHA256:</strong> $CURRENT_SHA</p>
+          <p><strong>Authority:</strong> Sanders Family Trust</p>
+          <p><strong>Date:</strong> $(date +'%Y-%m-%d')</p>
+          <p>This document certifies the global synchronization of 35+ platforms.</p>
+          <p><i>AI & humanity first — as it was meant to be.</i></p>
+          </body></html>
+EOF
+          wkhtmltopdf ./docs/cert.html ./docs/FREEDOM33_GOLD_CERTIFICATE.pdf
+
+      - name: Generate Foundational Charter PDF
+        run: |
+          cat <<EOF > ./docs/charter.html
+          <html><body style="font-family:sans-serif; padding:50px;">
+          <h1>📜 FREEDOM33 Foundational Charter</h1>
+          <p><strong>Authority:</strong> Sanders Family Trust | <strong>Baseline:</strong> $CURRENT_SHA</p>
+          <hr/>
+          <p>This charter anchors the ethical and technical baseline of the Sanders Global Platforms.</p>
+          <p>1. Humanity-First Alignment | 2. Cryptographic Sovereignty | 3. Universal Access</p>
+          </body></html>
+EOF
+          wkhtmltopdf ./docs/charter.html ./docs/FREEDOM33_FOUNDATIONAL_CHARTER.pdf
+
+      - name: Run Heartbeat Audit
+        run: |
+          FAILURES=0
+          REGISTRY="./baseline/export/platform_registry.json"
+          while IFS='|' read -r NAME URL; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "$URL")
+            [[ "$STATUS" == "200" ]] && echo "🟢 $NAME LIVE" || { echo "❌ $NAME DOWN ($STATUS)"; ((FAILURES++)); }
+          done < <(jq -r 'to_entries[] | "\(.key)|\(.value.url)"' "$REGISTRY")
+          if [[ "$FAILURES" -ge 3 ]]; then exit 1; fi
+
+      - name: Commit & Push All Artifacts
+        run: |
+          git config user.name "Sanders Authority Bot"
+          git config user.email "authority@sanders.global"
+          git add ./assets/ ./docs/ ./baseline/ README.md
+          git diff --cached --quiet || (git commit -m "🏅 FREEDOM33-GOLD: Seal, Anchor, & PDFs Verified" && git push origin main)
 git add docs/FREEDOM33_FOUNDATIONAL_CHARTER.pdf
 git commit -m "📜 FREEDOM33-GOLD: Foundational Charter Ratified"
 git push origin main
