@@ -1,3 +1,6 @@
+git add docs/FREEDOM33_FOUNDATIONAL_CHARTER.pdf
+git commit -m "📜 FREEDOM33-GOLD: Foundational Charter Ratified"
+git push origin main
 # Ensure directories exist
 mkdir -p assets baseline/export docs logs
 
