@@ -1,4 +1,7 @@
-npx vercel --prod --confirm<!-- ======================================================
+{
+  "Sanders AI Doctor": { "naic": "621111,541618,561612,541110,541512,611430", "url": "https://ai-doctor-your-deployment.vercel.app" },
+  "Sanders AI Psychiatrist": { "naic": "621330,541618,561612,541110,541512,611430", "url": "https://ai-psychiatrist-your-deployment.vercel.app" }
+}npx vercel --prod --confirm<!-- ======================================================
   Sanders Global Platforms — FREEDOM33
   Universal, Low-Resource, Audit-Ready, All-In-One
   Version: 1.0 | Baseline 2026-01-17
