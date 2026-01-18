@@ -1,3 +1,10 @@
+# Ensure directories exist
+mkdir -p assets baseline/export docs logs
+
+# Initiate the Unified Deployment
+git add .
+git commit -m "🔱 FREEDOM33-GOLD: Initiating Unified Global Deployment Engine"
+git push origin main
 git add README.md
 git commit -m "🏅 FREEDOM33-GOLD: Dashboard Live & Heartbeat Active"
 git push origin main
