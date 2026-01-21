@@ -1,4 +1,46 @@
-#!/usr/bin/env python3
+#!/bin/bash
+# ======================================================
+# FREEDOM33 Universal Deployment
+# Sanders Family Living Trust - Baseline 2026-01-20
+# ======================================================
+
+set -euo pipefail
+
+REGISTRY="./baseline/export/platform_registry.json"
+AUDIT_LOG="./logs/freedom33_audit.log"
+HEARTBEAT_LOG="./logs/heartbeat.log"
+WEBHOOK_URL="PASTE_YOUR_WEBHOOK_URL_HERE"
+
+mkdir -p ./logs
+
+# ---- GitHub Push Baseline & Docs ----
+git config user.name "Sanders Authority Bot"
+git config user.email "authority@sanders.global"
+git add README.md docs/ baseline/export/
+git diff --cached --quiet || git commit -m "🔒 FREEDOM33: Docs & Registry Modularized"
+git push origin main
+
+# ---- Deploy All Platforms ----
+echo "🔗 Deploying all platforms..."
+jq -r 'to_entries[] | "\(.key)|\(.value.url)"' "$REGISTRY" | while IFS='|' read -r NAME URL; do
+    echo "🚀 Deploying $NAME..."
+    npx vercel --prod --confirm --token "$VERCEL_TOKEN" --name "$NAME"
+done
+
+# ---- Heartbeat Audit ----
+echo "📡 Running heartbeat audit..." | tee -a "$AUDIT_LOG"
+jq -r 'to_entries[] | "\(.key)|\(.value.url)"' "$REGISTRY" | while IFS='|' read -r NAME URL; do
+    STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "$URL")
+    if [[ "$STATUS" == "200" ]]; then
+        echo "$(date -u) | ✅ $NAME is LIVE at $URL" | tee -a "$AUDIT_LOG"
+    else
+        echo "$(date -u) | ❌ $NAME DOWN ($STATUS) at $URL" | tee -a "$AUDIT_LOG"
+        curl -H "Content-Type: application/json" -X POST -d "{\"content\":\"⚠️ ALERT: $NAME is DOWN! (Status: $STATUS)\"}" "$WEBHOOK_URL"
+        echo "$(date -u) | ALERT sent for $NAME" >> "$HEARTBEAT_LOG"
+    fi
+done
+
+echo "✅ Deployment & audit complete."#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Sanders FREEDOM33: README Modularization
