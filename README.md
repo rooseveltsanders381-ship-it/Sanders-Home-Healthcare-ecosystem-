@@ -1,4 +1,33 @@
-#!/bin/bash
+name: FREEDOM33 Auto Deploy & Audit
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Generate Modular Docs
+        run: python3 scripts/generate_docs.py
+
+      - name: Run Universal Deployment
+        run: bash scripts/universal_deploy.sh
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}#!/bin/bash
 # ======================================================
 # FREEDOM33 Universal Deployment
 # Sanders Family Living Trust - Baseline 2026-01-20
