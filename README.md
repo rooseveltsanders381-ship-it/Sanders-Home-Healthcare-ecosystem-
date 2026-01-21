@@ -1,4 +1,5 @@
-name: FREEDOM33 Auto-Deploy & Docs Split
+/scripts/generate_docs.py
+/scripts/generate_certificates.pyname: FREEDOM33 Auto-Deploy & Docs Split
 
 on:
   push:
